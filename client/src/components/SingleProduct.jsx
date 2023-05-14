@@ -15,12 +15,11 @@ const SingleProduct = () => {
     // go to the server route, get the obj
     axios
       .get(`http://localhost:8000/api/product/${id}`)
-      .then((serverRes) => {
-        console.log(serverRes.data);
+      .then((res) => {
         // find where it's saving as a key, "Product", with value of array of objects
-        setTitle(serverRes.data.Product.title);
-        setPrice(serverRes.data.Product.price);
-        setDescription(serverRes.data.Product.description);
+        setTitle(res.data.Product.title);
+        setPrice(res.data.Product.price);
+        setDescription(res.data.Product.description);
       })
       .catch((serverErr) => console.log(serverErr));
   }, [id]);

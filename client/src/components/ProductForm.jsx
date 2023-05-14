@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 
 const ProductForm = (props) => {
   const { products, setProducts } = props;
+  const nav = useNavigate();
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -48,9 +49,25 @@ const ProductForm = (props) => {
         setTitle("");
         setPrice("");
         setDescription("");
-        setProducts([...products, res.data]);
+        setProducts([...products, res.data]); //***shouldn't this be setProducts([...products, res.Products.data])
       })
       .catch((err) => console.log(err));
+  };
+
+  // function to delete the one
+  const deleteMe = (productId) => {
+    console.log("delete", productId);
+    axios
+      .delete("http://localhost:8000/api/product/" + productId)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // function for button link to edit a single product
+  const updateMe = (productId) => {
+    nav(`/product/${productId}/edit`);
   };
 
   return (
@@ -100,11 +117,19 @@ const ProductForm = (props) => {
         <hr />
         {products.map((product) => {
           return (
-            <div>
-              <li>
-                <Link to={`/product/${product._id}`}>{product.title}</Link>
+            <div key={product._id}>
+              <li className="mt-2">
+                <Link to={`/product/${product._id}`} className="mx-2">
+                  {product.title}
+                </Link>
                 <span className="mx-2">{product.price}</span>
                 {product.description}
+                <Button onClick={() => deleteMe(product._id)} className="mx-2">
+                  Delete
+                </Button>
+                <Button onClick={() => updateMe(product._id)} className="mx-2">
+                  Update
+                </Button>
               </li>
             </div>
           );
