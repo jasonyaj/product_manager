@@ -1,11 +1,16 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import Main from "./views/Main";
+import SingleProduct from "./components/SingleProduct";
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
+      </Routes>
     </div>
   );
 }

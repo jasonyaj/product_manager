@@ -12,16 +12,16 @@ module.exports.getAll = (req, res) => {
     });
 };
 
-// // READ ONE
-// module.exports.getOne = (req, res) => {
-//   Product.findOne({ _id: req.params.id })
-//     .then((oneSingleProduct) => {
-//       res.json({ Product: oneSingleProduct });
-//     })
-//     .catch((err) => {
-//       res.json({ message: "Something went wrong", error: err });
-//     });
-// };
+// READ ONE
+module.exports.getOne = (req, res) => {
+  Product.findOne({ _id: req.params.id })
+    .then((oneSingleProduct) => {
+      res.json({ Product: oneSingleProduct });
+    })
+    .catch((err) => {
+      res.json({ message: "Something went wrong", error: err });
+    });
+};
 
 // CREATE
 module.exports.create = (req, res) => {
