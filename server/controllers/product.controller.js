@@ -6,6 +6,7 @@ module.exports.getAll = (req, res) => {
   Product.find()
     .then((allProducts) => {
       res.json({ Products: allProducts });
+      // res.json(allProducts);
     })
     .catch((err) => {
       res.json({ message: "Something went wrong", error: err });
@@ -28,6 +29,7 @@ module.exports.create = (req, res) => {
   Product.create(req.body)
     .then((newProduct) => {
       res.json({ Product: newProduct });
+      // res.json(newProduct);
     })
     .catch((err) => {
       res.json({ message: "Something went wrong", error: err });

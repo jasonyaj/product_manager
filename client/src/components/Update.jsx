@@ -65,7 +65,7 @@ const Update = (props) => {
       .delete("http://localhost:8000/api/product/" + productId)
       .then((res) => {
         // console.log(res.data);
-        nav("/"); //*** trying to redirect to refresh list, why does this not work???, maybe because line 36 'preventDefault'
+        nav("/");
       })
       .catch((err) => console.log(err));
   };
@@ -117,9 +117,8 @@ const Update = (props) => {
         </Form.Group>
       </Form>
       <div>
-        <Button onClick={() => deleteMe("id")} className="mt-2">
+        <Button onClick={() => deleteMe(id)} className="mt-2">
           {" "}
-          {/* ***passing {id} does not work, why??? */}
           Delete From Database
         </Button>
       </div>

@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 
 const ProductForm = (props) => {
   const { products, setProducts } = props;
+  const { removeFromDom } = props;
   const nav = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ const ProductForm = (props) => {
       .then((res) => {
         // ! always clog the server response
         console.log(" SERVER SUCCESS => ", res.data.Products);
-        setProducts(res.data.Products); //will not work with setProducts, line 10, why???
+        setProducts(res.data.Products);
       })
       .catch((err) => {
         console.log(" SERVER ERROR", err);
@@ -45,11 +46,11 @@ const ProductForm = (props) => {
     axios
       .post("http://localhost:8000/api/product", tempProductObj)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setTitle("");
         setPrice("");
         setDescription("");
-        setProducts([...products, res.data]); //***shouldn't this be setProducts([...products, res.Products.data])
+        setProducts([...products, res.data.Product]);
       })
       .catch((err) => console.log(err));
   };
@@ -60,7 +61,7 @@ const ProductForm = (props) => {
     axios
       .delete("http://localhost:8000/api/product/" + productId)
       .then((res) => {
-        console.log(res.data);
+        removeFromDom(productId);
       })
       .catch((err) => console.log(err));
   };

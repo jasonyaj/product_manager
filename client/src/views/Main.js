@@ -14,7 +14,7 @@ const Main = () => {
         setLoaded(true);
       })
       .catch((err) => console.error(err));
-  }, []); //useState loaded, setLoaded does not work??? useState products is infinite loop
+  }, []);
 
   const removeFromDom = (productId) => {
     setProducts(products.filter((product) => product._id !== productId));
